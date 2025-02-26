@@ -71,7 +71,7 @@ def main():
         nice_test_loader = DataLoader(refuge_test_dataset, batch_size=args.b, shuffle=False, num_workers=2, pin_memory=True)
         '''end'''
     elif args.dataset == 'multitask':
-        from func_2d.dataset import Multitask
+        from func_2d.mutitask import Multitask
         multitask_train_dataset = Multitask(args, args.data_path, transform = transform_train, mode = 'train')
         multitask_test_dataset = Multitask(args, args.data_path, transform = transform_test, mode = 'val')
 
