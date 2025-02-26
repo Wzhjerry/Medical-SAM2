@@ -71,7 +71,7 @@ class Multitask(Dataset):
             obj_mask = torch.tensor(np.array(obj_mask)).unsqueeze(0).int()
             obj_mask_list[obj] = obj_mask
 
-            obj_point_label_dict[obj], obj_pt_dict[obj] = random_click(np.array(obj_mask.squeeze(0)), 1, seed=None)
+            obj_point_label_dict[obj], obj_pt_dict[obj] = random_click(np.array(obj_mask.squeeze(0)), 1)
 
         # Identical transformations for image and ground truth
         seed = np.random.randint(2147483647)
