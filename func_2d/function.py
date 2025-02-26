@@ -451,12 +451,12 @@ def validation_sam(args, val_loader, epoch, net: nn.Module, clean_dir=True):
                 total_dice += temp[1]
 
                 '''vis images'''
-                if ind % args.vis == 0:
-                    namecat = 'Test'
-                    for na in name:
-                        img_name = na
-                        namecat = namecat + img_name + '+'
-                    vis_image(imgs,pred, masks, os.path.join(args.path_helper['sample_path'], namecat+'epoch+' +str(epoch) + '.jpg'), reverse=False, points=None)
+                # if ind % args.vis == 0:
+                #     namecat = 'Test'
+                #     for na in name:
+                #         img_name = na
+                #         namecat = namecat + img_name + '+'
+                #     vis_image(imgs,pred, masks, os.path.join(args.path_helper['sample_path'], namecat+'epoch+' +str(epoch) + '.jpg'), reverse=False, points=None)
                             
             pbar.update()
 
