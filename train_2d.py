@@ -51,7 +51,7 @@ def main():
 
     '''segmentation data'''
     transform_train = transforms.Compose([
-        transforms.Resize((args.image_size,args.image_size)),
+        transforms.Resize((args.image_size, args.image_size)),
         transforms.ToTensor(),
     ])
 
@@ -70,6 +70,10 @@ def main():
         nice_train_loader = DataLoader(refuge_train_dataset, batch_size=args.b, shuffle=True, num_workers=2, pin_memory=True)
         nice_test_loader = DataLoader(refuge_test_dataset, batch_size=args.b, shuffle=False, num_workers=2, pin_memory=True)
         '''end'''
+    elif args.dataset == 'multitask':
+        from func_2d.dataset import Multitask
+        multitask_train_dataset = Multitask(args, args.data_path, transform = transform_train, mode = 'train')
+        multitask_test_dataset = Multitask(args, args.data_path, transform = transform_test, mode = 'val')
 
 
     '''checkpoint path and tensorboard'''
