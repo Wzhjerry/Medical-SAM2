@@ -67,8 +67,8 @@ def main():
         refuge_train_dataset = REFUGE(args, args.data_path, transform = transform_train, mode = 'Training')
         refuge_test_dataset = REFUGE(args, args.data_path, transform = transform_test, mode = 'Test')
 
-        nice_train_loader = DataLoader(refuge_train_dataset, batch_size=args.b, shuffle=True, num_workers=2, pin_memory=True)
-        nice_test_loader = DataLoader(refuge_test_dataset, batch_size=args.b, shuffle=False, num_workers=2, pin_memory=True)
+        nice_train_loader = DataLoader(refuge_train_dataset, batch_size=args.b, shuffle=True, num_workers=8, pin_memory=True)
+        nice_test_loader = DataLoader(refuge_test_dataset, batch_size=args.b, shuffle=False, num_workers=8, pin_memory=True)
         '''end'''
     elif args.dataset == 'multitask':
         from func_2d.mutitask import Multitask
