@@ -83,7 +83,7 @@ class Multitask(Dataset):
 
         return {
             'image': im_t,              # Transformed image (tensor)
-            'label': obj_mask_list,          # Transformed multi-class mask (tensor)
+            'mask': obj_mask_list,          # Transformed multi-class mask (tensor)
             'p_label': obj_point_label_dict,  # Tensor of point labels (num_classes,)
             'pt': obj_pt_dict,            # Tensor of points (num_classes, 2)
             'image_meta_dict': image_meta_dict,
