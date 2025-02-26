@@ -59,33 +59,30 @@ class Multitask(Dataset):
         mask = self.read_labels(self.y[idx], name, self.split)
 
         im = Image.fromarray(np.uint8(image))
+        mask = Image.fromarray(np.uint8(mask)).convert('L')
 
-        obj_mask_list = {}
-        obj_pt_dict = {}
-        obj_point_label_dict = {}
-        obj_list = np.unique(mask > 0)
+        newsize = (1024, 1024)
+        mask = mask.resize(newsize)
 
-        for obj in obj_list:
-            obj_mask = np.zeros_like(mask)
-            obj_mask[mask == obj] = 255
-            obj_mask = torch.tensor(np.array(obj_mask)).unsqueeze(0).int()
-            obj_mask_list[obj] = obj_mask
-
-            obj_point_label_dict[obj], obj_pt_dict[obj] = random_click(np.array(obj_mask.squeeze(0)), 1)
+        point_label, pt = random_click(np.array(mask) / 255, point_labels=1)
 
         # Identical transformations for image and ground truth
         seed = np.random.randint(2147483647)
         torch.manual_seed(seed)
         random.seed(seed)
         im_t = self.im_transform(im)
-
+        torch.manual_seed(seed)
+        random.seed(seed)
+        target_t = self.label_transform(mask)
+        torch.manual_seed(seed)
+        random.seed(seed)
         image_meta_dict = {'filename_or_obj': name}
 
         return {
             'image': im_t,              # Transformed image (tensor)
-            'mask': obj_mask_list,          # Transformed multi-class mask (tensor)
-            'p_label': obj_point_label_dict,  # Tensor of point labels (num_classes,)
-            'pt': obj_pt_dict,            # Tensor of points (num_classes, 2)
+            'label': target_t,          # Transformed multi-class mask (tensor)
+            'p_label': point_label,  # Tensor of point labels (num_classes,)
+            'pt': pt,            # Tensor of points (num_classes, 2)
             'image_meta_dict': image_meta_dict,
         }
 
@@ -165,7 +162,7 @@ class Multitask(Dataset):
                 mask = np.zeros_like(label)
                 # mask[np.where(label > 0)] = 255
                 # mask[label == 2] = 2
-                mask[label_pseudo_vessel == 1] = 1
+                mask[label_pseudo_vessel == 1] = 255
                 # mask[label_pseudo_lesion == 1] = 255
                 # mask[label_pseudo_lesion == 2] = 5
                 # mask[label_pseudo_lesion == 3] = 6
@@ -237,7 +234,7 @@ class Multitask(Dataset):
                 # mask[label == 2] = 5
                 # mask[label == 3] = 6
                 # mask[label == 4] = 7
-                mask[label_pseudo_vessel == 1] = 1
+                mask[label_pseudo_vessel == 1] = 255
                 # mask[label_pseudo_odoc > 1] = 1
                 # mask[label_pseudo_odoc == 2] = 2
 
