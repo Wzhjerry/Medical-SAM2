@@ -72,8 +72,8 @@ def main():
         '''end'''
     elif args.dataset == 'multitask':
         from func_2d.mutitask import Multitask
-        multitask_train_dataset = Multitask(args, args.data_path, transform = transform_train, mode = 'train')
-        multitask_test_dataset = Multitask(args, args.data_path, transform = transform_test, mode = 'val')
+        multitask_train_dataset = Multitask(args, split = 'train')
+        multitask_test_dataset = Multitask(args, split = 'val')
 
 
     '''checkpoint path and tensorboard'''
