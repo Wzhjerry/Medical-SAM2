@@ -95,7 +95,7 @@ class Relabel(Dataset):
         target_vessel = cv2.resize(target_vessel, (self.args.size, self.args.size), interpolation=cv2.INTER_NEAREST)
 
         # Convert label from numpy to Image
-        target_vessel = Image.fromarray(np.uint8(target_vessel)).convert('1')
+        # target_vessel = Image.fromarray(np.uint8(target_vessel)).convert('1')
 
         target_odoc = Image.open(root_dirs[1])
         target_odoc = np.array(target_odoc).astype(np.uint8)
@@ -105,7 +105,7 @@ class Relabel(Dataset):
         target_odoc[target_odoc == 255] = 2
         target_odoc = cv2.resize(target_odoc, (self.args.size, self.args.size), interpolation=cv2.INTER_NEAREST)
         
-        target_odoc = Image.fromarray(np.uint8(target_odoc))
+        # target_odoc = Image.fromarray(np.uint8(target_odoc))
         
         target_ex = Image.open(root_dirs[2])
         target_ex = np.array(target_ex).astype(np.uint8)
@@ -123,7 +123,7 @@ class Relabel(Dataset):
         target_lesion[np.where(target_ex > 0)] = 1
         target_lesion[np.where(target_he > 0)] = 2
         
-        target_lesion = Image.fromarray(np.uint8(target_lesion))
+        # target_lesion = Image.fromarray(np.uint8(target_lesion))
 
         return [target_vessel, target_odoc, target_lesion]
 
