@@ -56,7 +56,7 @@ class Relabel(Dataset):
         # label
         target = self.read_labels(self.y[idx], name, self.split)
         target = target[0]
-        target = target * 255
+        # target = target * 255
 
         im = Image.fromarray(np.uint8(image))
         mask = Image.fromarray(np.uint8(target)).convert('L')
