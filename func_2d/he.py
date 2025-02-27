@@ -200,10 +200,10 @@ class HE(Dataset):
             label_se = cv2.resize(label_se, (1024, 1024), interpolation=cv2.INTER_NEAREST)
 
             label = np.zeros((label_ex.shape[0], label_ex.shape[1]), dtype=np.uint8)
-            label[np.where(label_ex == 255)] = 1
+            # label[np.where(label_ex == 255)] = 1
             label[np.where(label_he == 255)] = 2
-            label[np.where(label_ma == 255)] = 3
-            label[np.where(label_se == 255)] = 4
+            # label[np.where(label_ma == 255)] = 3
+            # label[np.where(label_se == 255)] = 4
 
             label = cv2.resize(label, (1024, 1024), interpolation=cv2.INTER_NEAREST)
 
@@ -222,7 +222,7 @@ class HE(Dataset):
 
                 mask = np.zeros_like(label)
                 # mask[label == 1] = 255
-                mask[label == 2] = 255
+                mask[label > 0] = 255
                 # mask[label == 3] = 6
                 # mask[label == 4] = 7
                 # mask[label_pseudo_vessel == 1] = 255
@@ -232,7 +232,7 @@ class HE(Dataset):
                 return mask
             else:
                 mask = np.zeros_like(label)
-                mask[label == 2] = 255
+                mask[label > 0] = 255
                 return mask
 
     def read_images(self, root_dir):

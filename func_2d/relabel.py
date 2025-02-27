@@ -67,7 +67,7 @@ class Relabel(Dataset):
             target = target[2]
             target[np.where(target == 1)] = 255
         elif 'he' in self.args.exp_name:
-            target = target[3]
+            target = target[2]
             target[np.where(target == 2)] = 255
         # target = target[2]
         # target = target * 255
