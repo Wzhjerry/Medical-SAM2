@@ -36,19 +36,18 @@ def main():
     args = cfg.parse_args()
     GPUdevice = torch.device('cuda', args.gpu_device)
 
-    args.sam_ckpt = os.path.join(args.path_helper['ckpt_path'], 'latest_epoch.pth')
-    net = get_network(args, args.net, use_gpu=args.gpu, gpu_device=GPUdevice, distribution = args.distributed)
-
-    # optimisation
-    optimizer = optim.Adam(net.parameters(), lr=args.lr, betas=(0.9, 0.999), eps=1e-08, weight_decay=0, amsgrad=False)
-    # scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.5) 
-
     '''load pretrained model'''
 
     args.path_helper = set_log_dir('logs', args.exp_name)
     logger = create_logger(args.path_helper['log_path'])
     logger.info(args)
 
+    args.sam_ckpt = os.path.join(args.path_helper['ckpt_path'], 'latest_epoch.pth')
+    net = get_network(args, args.net, use_gpu=args.gpu, gpu_device=GPUdevice, distribution = args.distributed)
+
+    # optimisation
+    optimizer = optim.Adam(net.parameters(), lr=args.lr, betas=(0.9, 0.999), eps=1e-08, weight_decay=0, amsgrad=False)
+    # scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.5)
 
     '''segmentation data'''
     transform_train = transforms.Compose([
