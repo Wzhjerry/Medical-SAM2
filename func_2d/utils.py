@@ -432,6 +432,7 @@ def eval_seg(pred,true_mask_p,threshold):
 def random_click(mask, point_label = 1):
     max_label = max(set(mask.flatten()))
     if round(max_label) == 0:
+        print('no label in the mask')
         point_label = round(max_label)
     indices = np.argwhere(mask == max_label) 
     return point_label, indices[np.random.randint(len(indices))]
