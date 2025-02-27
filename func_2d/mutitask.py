@@ -29,14 +29,14 @@ class Multitask(Dataset):
             # "FIVES", 
             # "HRF", 
             # "STARE", 
-            "G1020", 
-            "GAMMA - task3", 
-            "ORIGA", 
-            "Papila", 
-            "REFUGE", 
-            # "DDR - lesion_seg", 
-            # "FGADR-Seg-set", 
-            # "IDRiD"
+            # "G1020", 
+            # "GAMMA - task3", 
+            # "ORIGA", 
+            # "Papila", 
+            # "REFUGE", 
+            "DDR - lesion_seg", 
+            "FGADR-Seg-set", 
+            "IDRiD"
         ]
 
         self.x, self.y, self.names = self.load_name(args, split)
@@ -230,11 +230,11 @@ class Multitask(Dataset):
                 # target_pseudo_odoc = Image.fromarray(np.uint8(label_pseudo_odoc))
 
                 mask = np.zeros_like(label)
-                # mask[label == 1] = 255
+                mask[label == 1] = 255
                 # mask[label == 2] = 5
                 # mask[label == 3] = 6
                 # mask[label == 4] = 7
-                mask[label_pseudo_vessel == 1] = 255
+                # mask[label_pseudo_vessel == 1] = 255
                 # mask[label_pseudo_odoc > 1] = 1
                 # mask[label_pseudo_odoc == 2] = 2
 
