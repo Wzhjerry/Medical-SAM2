@@ -55,18 +55,18 @@ class Relabel(Dataset):
         name = self.names[idx]
         # label
         target = self.read_labels(self.y[idx], name, self.split)
-        if self.args.dataset == 'vessel':
+        if 'vessel' in self.args.exp_name:
             target = target[0]
-        elif self.args.dataset == 'od':
+        elif 'od' in self.args.exp_name:
             target = target[1]
             target[np.where(target > 0)] = 255
-        elif self.args.dataset == 'oc':
+        elif 'oc' in self.args.exp_name:
             target = target[1]
             target[np.where(target > 1)] = 255
-        elif self.args.dataset == 'ex':
+        elif 'ex' in self.args.exp_name:
             target = target[2]
             target[np.where(target == 1)] = 255
-        elif self.args.dataset == 'he':
+        elif 'he' in self.args.exp_name:
             target = target[3]
             target[np.where(target == 2)] = 255
         # target = target[2]
