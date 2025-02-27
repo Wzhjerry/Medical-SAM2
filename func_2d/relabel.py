@@ -48,10 +48,6 @@ class Relabel(Dataset):
             return idx
 
     def __getitem__(self, idx):
-        # if torch.is_tensor(idx):
-        #     idx = idx.tolist()
-        # idx = self._get_index(idx)
-
         # BGR -> RGB -> PIL
         image = cv2.imread(self.x[idx])[..., ::-1]
         image = cv2.resize(image, (1024, 1024), interpolation=cv2.INTER_CUBIC)
