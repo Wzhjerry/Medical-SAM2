@@ -416,7 +416,7 @@ def eval_seg(pred,true_mask_p,threshold):
             disc_mask = gt_vmask_p [:,0,:,:].squeeze(1).cpu().numpy().astype('int32')
     
             '''iou for numpy'''
-            eiou += iou(disc_pred,disc_mask)
+            eiou += jc(disc_pred,disc_mask)
 
             '''dice for torch'''
             edice += dice_coeff(vpred[:,0,:,:], gt_vmask_p[:,0,:,:]).item()
