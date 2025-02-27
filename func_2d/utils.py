@@ -411,25 +411,24 @@ def eval_seg(pred,true_mask_p,threshold):
             gt_vmask_p = (true_mask_p > th).float()
             vpred = (pred > th).float()
             vpred_cpu = vpred.cpu()
-            disc_pred = vpred[:,0,:,:].squeeze().cpu().numpy().astype('int32')
+            disc_pred = vpred[:,0,:,:].squeeze(1).cpu().numpy().astype('int32')
 
             disc_mask = gt_vmask_p[:,0,:,:].squeeze(1).cpu().numpy().astype('int32')
     
-            '''iou for numpy'''
-            disc_mask[np.where(disc_mask > 0)] = 1
-            disc_pred[np.where(disc_pred > 0)] = 1
-            eiou += jc(disc_pred, disc_mask)
-            # eiou += iou(vpred[:,0,:,:].squeeze(1).cpu().detach().numpy(), gt_vmask_p[:,0,:,:].squeeze(1).cpu().detach().numpy())
+            # '''iou for numpy'''
+            # disc_mask[np.where(disc_mask > 0)] = 1
+            # disc_pred[np.where(disc_pred > 0)] = 1
+            # eiou += jc(disc_pred, disc_mask)
+            # # eiou += iou(vpred[:,0,:,:].squeeze(1).cpu().detach().numpy(), gt_vmask_p[:,0,:,:].squeeze(1).cpu().detach().numpy())
 
-            '''dice for torch'''
-            edice += dice_coeff(vpred[:,0,:,:], gt_vmask_p[:,0,:,:]).item()
-            # dsc = dc(disc_pred,disc_mask)
-            # iou = jc(disc_pred,disc_mask)
-            # if not dsc == 1 and not dsc == 0:
-            #     # print('dsc',dsc)
-            #     # print('iou',iou)
-            #     edice += dsc
-            #     eiou += iou
+            # '''dice for torch'''
+            # edice += dice_coeff(vpred[:,0,:,:], gt_vmask_p[:,0,:,:]).item()
+            dsc = dc(disc_pred,disc_mask)
+            iou = jc(disc_pred,disc_mask)
+            if not dsc == 1 and not dsc == 0:
+
+                edice += dsc
+                eiou += iou
             
         return eiou / len(threshold), edice / len(threshold)
 

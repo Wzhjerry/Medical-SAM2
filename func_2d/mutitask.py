@@ -29,14 +29,14 @@ class Multitask(Dataset):
             # "FIVES", 
             # "HRF", 
             # "STARE", 
-            # "G1020", 
-            # "GAMMA - task3", 
-            # "ORIGA", 
-            # "Papila", 
-            # "REFUGE", 
-            "DDR - lesion_seg", 
-            "FGADR-Seg-set", 
-            "IDRiD"
+            "G1020", 
+            "GAMMA - task3", 
+            "ORIGA", 
+            "Papila", 
+            "REFUGE", 
+            # "DDR - lesion_seg", 
+            # "FGADR-Seg-set", 
+            # "IDRiD"
         ]
 
         self.x, self.y, self.names = self.load_name(args, split)
@@ -140,8 +140,8 @@ class Multitask(Dataset):
             if len(label.shape) == 3:
                 label = label[..., 0]
             # label = label[ymin:ymax, xmin:xmax]
-            label[(label > 0) & (label < 255)] = 1
-            label[label == 255] = 2
+            label[(label > 0) & (label < 255)] = 0
+            label[label == 255] = 1
             label = cv2.resize(label, (1024, 1024), interpolation=cv2.INTER_NEAREST)
             # label = label.resize((1024, 1024))
 
