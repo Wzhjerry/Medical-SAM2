@@ -160,7 +160,7 @@ class Multitask(Dataset):
                 # target_pseudo_lesion = Image.fromarray(np.uint8(label_pseudo_lesion))
 
                 mask = np.zeros_like(label)
-                mask[np.where(label > 1)] = 255
+                mask[np.where(label > 0)] = 255
                 # mask[label == 2] = 2
                 # mask[label_pseudo_vessel == 1] = 255
                 # mask[label_pseudo_lesion == 1] = 255
