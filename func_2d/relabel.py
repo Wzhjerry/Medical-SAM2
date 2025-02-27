@@ -102,8 +102,11 @@ class Relabel(Dataset):
         if len(target_odoc.shape) == 3:
             target_odoc = target_odoc[..., 0]
 
-        target_odoc[(target_odoc > 0) & (target_odoc < 255)] = 0
-        target_odoc[target_odoc == 255] = 1
+        target_return = np.zeros_like(target_odoc, dtype=np.uint8)
+        target_return[np.where(target_odoc < 255)] = 0
+        target_return[np.where(target_odoc == 255)] = 1
+        target_odoc[(target_odoc > 0) & (target_odoc < 255)] = 1
+        target_odoc[target_odoc == 255] = 0
         target_odoc = cv2.resize(target_odoc, (self.args.size, self.args.size), interpolation=cv2.INTER_NEAREST)
         
         # target_odoc = Image.fromarray(np.uint8(target_odoc))
@@ -126,7 +129,7 @@ class Relabel(Dataset):
         
         # target_lesion = Image.fromarray(np.uint8(target_lesion))
 
-        return [target_vessel, target_odoc, target_lesion]
+        return [target_vessel, target_return, target_lesion]
 
     def load_name(self, args, split):
         inputs, targets, names = [], [], []
