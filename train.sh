@@ -4,3 +4,8 @@ python train_2d.py -net sam2 -exp_name oc_new -vis 1 -sam_ckpt ./checkpoints/sam
 python train_2d.py -net sam2 -exp_name ex_new -vis 1 -sam_ckpt ./checkpoints/sam2_hiera_small.pt -sam_config sam2_hiera_s -image_size 1024 -out_size 1024 -b 4 -val_freq 1 -dataset ex -data_path custom
 python train_2d.py -net sam2 -exp_name he_new -vis 1 -sam_ckpt ./checkpoints/sam2_hiera_small.pt -sam_config sam2_hiera_s -image_size 1024 -out_size 1024 -b 4 -val_freq 1 -dataset he -data_path custom
 
+python val_2d.py -net sam2 -exp_name vessel_new_eval -vis 1 -sam_ckpt ./logs/vessel_new/Model/latest_epoch.pth -sam_config sam2_hiera_s -image_size 1024 -out_size 1024 -b 4 -val_freq 1 -dataset vessel -data_path custom
+python val_2d.py -net sam2 -exp_name od_new_eval -vis 1 -sam_ckpt ./logs/od_new/Model/latest_epoch.pth -sam_config sam2_hiera_s -image_size 1024 -out_size 1024 -b 4 -val_freq 1 -dataset od -data_path custom
+python val_2d.py -net sam2 -exp_name oc_new_eval -vis 1 -sam_ckpt ./logs/oc_new/Model/latest_epoch.pth -sam_config sam2_hiera_s -image_size 1024 -out_size 1024 -b 4 -val_freq 1 -dataset oc -data_path custom
+python val_2d.py -net sam2 -exp_name ex_new_eval -vis 1 -sam_ckpt ./logs/ex_new/Model/latest_epoch.pth -sam_config sam2_hiera_s -image_size 1024 -out_size 1024 -b 4 -val_freq 1 -dataset ex -data_path custom
+python val_2d.py -net sam2 -exp_name he_new_eval -vis 1 -sam_ckpt ./logs/he_new/Model/latest_epoch.pth -sam_config sam2_hiera_s -image_size 1024 -out_size 1024 -b 4 -val_freq 1 -dataset he -data_path custom
