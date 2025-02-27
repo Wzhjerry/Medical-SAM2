@@ -232,7 +232,7 @@ class HE(Dataset):
                 return mask
             else:
                 mask = np.zeros_like(label)
-                mask[label == 1] = 255
+                mask[label == 2] = 255
                 return mask
 
     def read_images(self, root_dir):
