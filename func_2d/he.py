@@ -18,7 +18,7 @@ import pandas as pd
 os.environ["OPENCV_LOG_LEVEL"] = "0"
 
 
-class EHE(Dataset):
+class HE(Dataset):
     def __init__(self, args, split):
         super(HE, self).__init__()
         self.args = args
