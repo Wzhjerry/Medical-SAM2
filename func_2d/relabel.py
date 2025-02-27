@@ -62,14 +62,13 @@ class Relabel(Dataset):
         target = target[0]
         target = target * 255
 
+        im = Image.fromarray(np.uint8(image))
         mask = Image.fromarray(np.uint8(target)).convert('L')
 
         newsize = (1024, 1024)
         mask = mask.resize(newsize)
 
         point_label, pt = random_click(np.array(mask) / 255, point_label=1)
-        
-        im = Image.fromarray(np.uint8(image))
 
         # identical transformation for im and gt
         seed = np.random.randint(2147483647)
@@ -80,7 +79,6 @@ class Relabel(Dataset):
         target_t = self.label_transform(mask)
         torch.manual_seed(seed)
         random.seed(seed)
-
         image_meta_dict = {'filename_or_obj': name}
 
         return {
