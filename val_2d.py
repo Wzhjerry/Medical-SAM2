@@ -42,7 +42,7 @@ def main():
     logger = create_logger(args.path_helper['log_path'])
     logger.info(args)
 
-    args.sam_ckpt = os.path.join(args.path_helper['ckpt_path'], 'latest_epoch.pth')
+    # args.sam_ckpt = os.path.join(args.path_helper['ckpt_path'], 'latest_epoch.pth')
     net = get_network(args, args.net, use_gpu=args.gpu, gpu_device=GPUdevice, distribution = args.distributed)
 
     # optimisation
