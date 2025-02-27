@@ -453,6 +453,9 @@ def validation_sam(args, val_loader, epoch, net: nn.Module, clean_dir=True):
 
                 # Save the results
                 for idx, name in enumerate(names):
+                    save_path = os.path.join(args.sam_ckpt, 'visual')
+                    if not os.path.exists(save_path):
+                        os.makedirs(save_path)
                     save_name = os.path.join(args.sam_ckpt, name + '.png')
                     save_pred = pred[idx].squeeze().cpu().numpy()
                     save_pred = cv2.resize(save_pred, (640, 640), interpolation=cv2.INTER_NEAREST)
