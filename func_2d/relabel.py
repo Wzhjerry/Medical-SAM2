@@ -23,9 +23,9 @@ class Relabel(Dataset):
         self.args = args
         self.args.size = 1024
         self.args.sub_data = [
-            # "DRIVE", 
-            # "HRF", 
-            # "GAMMA - task3", 
+            "DRIVE", 
+            "HRF", 
+            "GAMMA - task3", 
             "IDRiD"
         ]
         self.x, self.y, self.names = self.load_name(args, split)
