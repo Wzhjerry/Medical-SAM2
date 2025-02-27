@@ -411,9 +411,9 @@ def eval_seg(pred,true_mask_p,threshold):
             gt_vmask_p = (true_mask_p > th).float()
             vpred = (pred > th).float()
             vpred_cpu = vpred.cpu()
-            disc_pred = vpred_cpu[:,0,:,:].numpy().astype('int32')
+            disc_pred = vpred[:,0,:,:].squeeze().cpu().numpy().astype('int32')
 
-            disc_mask = gt_vmask_p [:,0,:,:].squeeze(1).cpu().numpy().astype('int32')
+            disc_mask = gt_vmask_p[:,0,:,:].squeeze(1).cpu().numpy().astype('int32')
     
             '''iou for numpy'''
             disc_mask[np.where(disc_mask > 0)] = 1
