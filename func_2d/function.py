@@ -453,7 +453,8 @@ def validation_sam(args, val_loader, epoch, net: nn.Module, clean_dir=True):
 
                 # Save the results
                 for idx, name in enumerate(names):
-                    save_path = os.path.join(args.sam_ckpt, 'visual')
+                    save_path = os.path.join(os.path.split(args.sam_ckpt)[0], 'visual')
+                    # save_path = os.path.join(args.sam_ckpt, 'visual')
                     if not os.path.exists(save_path):
                         os.makedirs(save_path)
                     save_name = os.path.join(args.sam_ckpt, name + '.png')
