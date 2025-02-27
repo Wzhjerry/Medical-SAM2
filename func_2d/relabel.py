@@ -124,8 +124,8 @@ class Relabel(Dataset):
         target_he = cv2.resize(target_he, (self.args.size, self.args.size), interpolation=cv2.INTER_NEAREST)
 
         target_lesion = np.zeros_like(target_ex, dtype=np.uint8)
-        target_lesion[np.where(target_ex > 0)] = 1
-        target_lesion[np.where(target_he > 0)] = 0
+        target_lesion[np.where(target_ex > 0)] = 0
+        target_lesion[np.where(target_he > 0)] = 1
         
         # target_lesion = Image.fromarray(np.uint8(target_lesion))
 
