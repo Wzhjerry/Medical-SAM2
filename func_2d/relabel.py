@@ -102,7 +102,7 @@ class Relabel(Dataset):
         if len(target_odoc.shape) == 3:
             target_odoc = target_odoc[..., 0]
         target_odoc[(target_odoc > 0) & (target_odoc < 255)] = 1
-        # target_odoc[target_odoc == 255] = 1
+        target_odoc[target_odoc == 255] = 0
         target_odoc = cv2.resize(target_odoc, (self.args.size, self.args.size), interpolation=cv2.INTER_NEAREST)
         
         # target_odoc = Image.fromarray(np.uint8(target_odoc))
