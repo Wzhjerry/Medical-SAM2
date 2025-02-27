@@ -446,7 +446,7 @@ def validation_sam(args, val_loader, epoch, net: nn.Module, clean_dir=True):
 
                 # binary mask and calculate loss, iou, dice
                 total_loss += lossfunc(pred, masks)
-                pred = (pred> 0.5).float()
+                pred = (pred > 0.5).float()
                 temp = eval_seg(pred, masks, threshold)
                 total_eiou += temp[0]
                 total_dice += temp[1]

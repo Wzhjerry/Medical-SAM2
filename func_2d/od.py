@@ -18,25 +18,18 @@ import pandas as pd
 os.environ["OPENCV_LOG_LEVEL"] = "0"
 
 
-class Multitask(Dataset):
+class OD(Dataset):
     def __init__(self, args, split):
-        super(Multitask, self).__init__()
+        super(OD, self).__init__()
         self.args = args
         self.args.size = 1024
         self.args.pseudo_num = 1
         self.args.sub_data = [
-            # "DRIVE", 
-            # "FIVES", 
-            # "HRF", 
-            # "STARE", 
-            # "G1020", 
-            # "GAMMA - task3", 
-            # "ORIGA", 
-            # "Papila", 
-            # "REFUGE", 
-            "DDR - lesion_seg", 
-            "FGADR-Seg-set", 
-            "IDRiD"
+            "G1020", 
+            "GAMMA - task3", 
+            "ORIGA", 
+            "Papila", 
+            "REFUGE", 
         ]
 
         self.x, self.y, self.names = self.load_name(args, split)
@@ -140,7 +133,7 @@ class Multitask(Dataset):
             if len(label.shape) == 3:
                 label = label[..., 0]
             # label = label[ymin:ymax, xmin:xmax]
-            label[(label > 0) & (label < 255)] = 0
+            label[(label > 0) & (label < 255)] = 1
             label[label == 255] = 1
             label = cv2.resize(label, (1024, 1024), interpolation=cv2.INTER_NEAREST)
             # label = label.resize((1024, 1024))
@@ -171,7 +164,7 @@ class Multitask(Dataset):
                 return mask
             else:
                 mask = np.zeros_like(label)
-                mask[np.where(label > 1)] = 255
+                mask[np.where(label > 0)] = 255
                 return mask
     
         # Read labels for lesion seg
@@ -396,9 +389,9 @@ class Multitask(Dataset):
 
 def load_dataset(args, train=False):
     if train:
-        train_dataset = Multitask(args, 'train')
-        val_dataset = Multitask(args, 'val')
+        train_dataset = OD(args, 'train')
+        val_dataset = OD(args, 'val')
         return train_dataset, val_dataset
     else:
-        test_dataset = Multitask(args, 'test')
+        test_dataset = OD(args, 'test')
         return test_dataset

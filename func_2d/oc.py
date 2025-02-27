@@ -18,25 +18,18 @@ import pandas as pd
 os.environ["OPENCV_LOG_LEVEL"] = "0"
 
 
-class Multitask(Dataset):
+class OC(Dataset):
     def __init__(self, args, split):
-        super(Multitask, self).__init__()
+        super(OC, self).__init__()
         self.args = args
         self.args.size = 1024
         self.args.pseudo_num = 1
         self.args.sub_data = [
-            # "DRIVE", 
-            # "FIVES", 
-            # "HRF", 
-            # "STARE", 
-            # "G1020", 
-            # "GAMMA - task3", 
-            # "ORIGA", 
-            # "Papila", 
-            # "REFUGE", 
-            "DDR - lesion_seg", 
-            "FGADR-Seg-set", 
-            "IDRiD"
+            "G1020", 
+            "GAMMA - task3", 
+            "ORIGA", 
+            "Papila", 
+            "REFUGE", 
         ]
 
         self.x, self.y, self.names = self.load_name(args, split)
@@ -171,7 +164,7 @@ class Multitask(Dataset):
                 return mask
             else:
                 mask = np.zeros_like(label)
-                mask[np.where(label > 1)] = 255
+                mask[np.where(label > 0)] = 255
                 return mask
     
         # Read labels for lesion seg
@@ -393,12 +386,3 @@ class Multitask(Dataset):
         print("=> Using {} images for Lesion {}".format(len(inputs), split))
         return inputs, [targets_ex, targets_he, targets_ma, targets_se], names
 
-
-def load_dataset(args, train=False):
-    if train:
-        train_dataset = Multitask(args, 'train')
-        val_dataset = Multitask(args, 'val')
-        return train_dataset, val_dataset
-    else:
-        test_dataset = Multitask(args, 'test')
-        return test_dataset

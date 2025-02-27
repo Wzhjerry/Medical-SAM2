@@ -77,6 +77,41 @@ def main():
 
         nice_train_loader = DataLoader(multitask_train_dataset, batch_size=args.b, shuffle=True, num_workers=8, pin_memory=True)
         nice_test_loader = DataLoader(multitask_test_dataset, batch_size=args.b, shuffle=False, num_workers=8, pin_memory=True)
+    elif args.dataset == 'vessel':
+        from func_2d.vessel import Vessel
+        vessel_train_dataset = Vessel(args, split = 'train')
+        vessel_test_dataset = Vessel(args, split = 'val')
+
+        nice_train_loader = DataLoader(vessel_train_dataset, batch_size=args.b, shuffle=True, num_workers=8, pin_memory=True)
+        nice_test_loader = DataLoader(vessel_test_dataset, batch_size=args.b, shuffle=False, num_workers=8, pin_memory=True)
+    elif args.dataset == 'od':
+        from func_2d.od import OD
+        od_train_dataset = OD(args, split = 'train')
+        od_test_dataset = OD(args, split = 'val')
+
+        nice_train_loader = DataLoader(od_train_dataset, batch_size=args.b, shuffle=True, num_workers=8, pin_memory=True)
+        nice_test_loader = DataLoader(od_test_dataset, batch_size=args.b, shuffle=False, num_workers=8, pin_memory=True)
+    elif args.dataset == 'oc':
+        from func_2d.oc import OC
+        oc_train_dataset = OC(args, split = 'train')
+        oc_test_dataset = OC(args, split = 'val')
+
+        nice_train_loader = DataLoader(oc_train_dataset, batch_size=args.b, shuffle=True, num_workers=8, pin_memory=True)
+        nice_test_loader = DataLoader(oc_test_dataset, batch_size=args.b, shuffle=False, num_workers=8, pin_memory=True)
+    elif args.dataset == 'ex':
+        from func_2d.ex import EX
+        ex_train_dataset = EX(args, split = 'train')
+        ex_test_dataset = EX(args, split = 'val')
+
+        nice_train_loader = DataLoader(ex_train_dataset, batch_size=args.b, shuffle=True, num_workers=8, pin_memory=True)
+        nice_test_loader = DataLoader(ex_test_dataset, batch_size=args.b, shuffle=False, num_workers=8, pin_memory=True)
+    elif args.dataset == 'he':
+        from func_2d.he import HE
+        he_train_dataset = HE(args, split = 'train')
+        he_test_dataset = HE(args, split = 'val')
+
+        nice_train_loader = DataLoader(he_train_dataset, batch_size=args.b, shuffle=True, num_workers=8, pin_memory=True)
+        nice_test_loader = DataLoader(he_test_dataset, batch_size=args.b, shuffle=False, num_workers=8, pin_memory=True)
 
     '''checkpoint path and tensorboard'''
     checkpoint_path = os.path.join(settings.CHECKPOINT_PATH, args.net, settings.TIME_NOW)

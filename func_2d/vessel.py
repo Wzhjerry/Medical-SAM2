@@ -18,25 +18,17 @@ import pandas as pd
 os.environ["OPENCV_LOG_LEVEL"] = "0"
 
 
-class Multitask(Dataset):
+class Vessel(Dataset):
     def __init__(self, args, split):
-        super(Multitask, self).__init__()
+        super(Vessel, self).__init__()
         self.args = args
         self.args.size = 1024
         self.args.pseudo_num = 1
         self.args.sub_data = [
-            # "DRIVE", 
-            # "FIVES", 
-            # "HRF", 
-            # "STARE", 
-            # "G1020", 
-            # "GAMMA - task3", 
-            # "ORIGA", 
-            # "Papila", 
-            # "REFUGE", 
-            "DDR - lesion_seg", 
-            "FGADR-Seg-set", 
-            "IDRiD"
+            "DRIVE", 
+            "FIVES", 
+            "HRF", 
+            "STARE", 
         ]
 
         self.x, self.y, self.names = self.load_name(args, split)
@@ -396,9 +388,9 @@ class Multitask(Dataset):
 
 def load_dataset(args, train=False):
     if train:
-        train_dataset = Multitask(args, 'train')
-        val_dataset = Multitask(args, 'val')
+        train_dataset = Vessel(args, 'train')
+        val_dataset = Vessel(args, 'val')
         return train_dataset, val_dataset
     else:
-        test_dataset = Multitask(args, 'test')
+        test_dataset = Vessel(args, 'test')
         return test_dataset
