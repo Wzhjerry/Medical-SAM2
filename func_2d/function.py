@@ -10,6 +10,7 @@ import cfg
 from conf import settings
 from func_2d.utils import *
 import pandas as pd
+import cv2
 
 
 args = cfg.parse_args()
@@ -289,7 +290,7 @@ def validation_sam(args, val_loader, epoch, net: nn.Module, clean_dir=True):
             to_cat_memory_pos = []
             to_cat_image_embed = []
 
-            name = pack['image_meta_dict']['filename_or_obj']
+            names = pack['image_meta_dict']['filename_or_obj']
             imgs = pack['image'].to(dtype = torch.float32, device = GPUdevice)
             masks = pack['mask'].to(dtype = torch.float32, device = GPUdevice)
 
@@ -449,6 +450,14 @@ def validation_sam(args, val_loader, epoch, net: nn.Module, clean_dir=True):
                 temp = eval_seg(pred, masks, threshold)
                 total_eiou += temp[0]
                 total_dice += temp[1]
+
+                # Save the results
+                for idx, name in enumerate(names):
+                    save_name = os.path.join(args.sam_ckpt, name + '.png')
+                    save_pred = pred[idx].squeeze().cpu().numpy()
+                    save_pred = cv2.resize(save_pred, (640, 640), interpolation=cv2.INTER_NEAREST)
+                    save_pred = (save_pred * 255).astype('uint8')
+                    cv2.imwrite(save_name, save_pred)
 
                 '''vis images'''
                 # if ind % args.vis == 0:
