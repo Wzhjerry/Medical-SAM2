@@ -25,18 +25,18 @@ class Multitask(Dataset):
         self.args.size = 1024
         self.args.pseudo_num = 1
         self.args.sub_data = [
-            # "DRIVE", 
-            # "FIVES", 
-            # "HRF", 
-            # "STARE", 
+            "DRIVE", 
+            "FIVES", 
+            "HRF", 
+            "STARE", 
             # "G1020", 
             # "GAMMA - task3", 
             # "ORIGA", 
             # "Papila", 
             # "REFUGE", 
-            "DDR - lesion_seg", 
-            "FGADR-Seg-set", 
-            "IDRiD"
+            # "DDR - lesion_seg", 
+            # "FGADR-Seg-set", 
+            # "IDRiD"
         ]
 
         self.x, self.y, self.names = self.load_name(args, split)
