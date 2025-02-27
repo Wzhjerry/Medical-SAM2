@@ -55,7 +55,7 @@ class Relabel(Dataset):
         name = self.names[idx]
         # label
         target = self.read_labels(self.y[idx], name, self.split)
-        target = target[1]
+        target = target[2]
         target = target * 255
 
         im = Image.fromarray(np.uint8(image))
@@ -125,7 +125,7 @@ class Relabel(Dataset):
 
         target_lesion = np.zeros_like(target_ex, dtype=np.uint8)
         target_lesion[np.where(target_ex > 0)] = 1
-        target_lesion[np.where(target_he > 0)] = 2
+        target_lesion[np.where(target_he > 0)] = 0
         
         # target_lesion = Image.fromarray(np.uint8(target_lesion))
 
