@@ -420,8 +420,11 @@ def eval_seg(pred,true_mask_p,threshold):
 
             '''dice for torch'''
             # edice += dice_coeff(vpred[:,0,:,:], gt_vmask_p[:,0,:,:]).item()
-            edice += dc(disc_pred,disc_mask)
-            eiou += jc(disc_pred,disc_mask)
+            dsc = dc(disc_pred,disc_mask)
+            iou = jc(disc_pred,disc_mask)
+            if not dsc == 0 or not iou == 0:
+                edice += dc(disc_pred,disc_mask)
+                eiou += jc(disc_pred,disc_mask)
             
         return eiou / len(threshold), edice / len(threshold)
 
