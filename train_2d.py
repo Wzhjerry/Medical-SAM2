@@ -75,13 +75,15 @@ def main():
         multitask_train_dataset = Multitask(args, split = 'train')
         multitask_test_dataset = Multitask(args, split = 'val')
 
+        nice_train_loader = DataLoader(multitask_train_dataset, batch_size=args.b, shuffle=True, num_workers=8, pin_memory=True)
+        nice_test_loader = DataLoader(multitask_test_dataset, batch_size=args.b, shuffle=False, num_workers=8, pin_memory=True)
     elif args.dataset == 'relabel':
         from func_2d.relabel import Relabel
         relabel_train_dataset = Relabel(args, split = 'train')
         relabel_test_dataset = Relabel(args, split = 'test')
 
-        nice_train_loader = DataLoader(multitask_train_dataset, batch_size=args.b, shuffle=True, num_workers=8, pin_memory=True)
-        nice_test_loader = DataLoader(multitask_test_dataset, batch_size=args.b, shuffle=False, num_workers=8, pin_memory=True)
+        nice_train_loader = DataLoader(relabel_train_dataset, batch_size=args.b, shuffle=True, num_workers=8, pin_memory=True)
+        nice_test_loader = DataLoader(relabel_test_dataset, batch_size=args.b, shuffle=False, num_workers=8, pin_memory=True)
     elif args.dataset == 'vessel':
         from func_2d.vessel import Vessel
         vessel_train_dataset = Vessel(args, split = 'train')
