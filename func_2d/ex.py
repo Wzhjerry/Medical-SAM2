@@ -200,7 +200,7 @@ class EX(Dataset):
             label_se = cv2.resize(label_se, (1024, 1024), interpolation=cv2.INTER_NEAREST)
 
             label = np.zeros((label_ex.shape[0], label_ex.shape[1]), dtype=np.uint8)
-            label[np.where(label_ex == 255)] = 1
+            label[np.where(label_ex > 0)] = 1
             # label[np.where(label_he == 255)] = 2
             # label[np.where(label_ma == 255)] = 3
             # label[np.where(label_se == 255)] = 4
