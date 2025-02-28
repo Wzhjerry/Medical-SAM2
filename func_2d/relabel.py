@@ -70,7 +70,7 @@ class Relabel(Dataset):
             target = target * 255
         elif 'he' in self.args.exp_name:
             target = target[2]
-            target[np.where(target == 2)] = 255
+            target[np.where(target == 1)] = 255
         # target = target[2]
         # target = target * 255
 
@@ -140,8 +140,8 @@ class Relabel(Dataset):
         target_he = cv2.resize(target_he, (self.args.size, self.args.size), interpolation=cv2.INTER_NEAREST)
 
         target_lesion = np.zeros_like(target_ex, dtype=np.uint8)
-        target_lesion[np.where(target_ex > 0)] = 1
-        # target_lesion[np.where(target_he > 0)] = 2
+        # target_lesion[np.where(target_ex > 0)] = 1
+        target_lesion[np.where(target_he > 0)] = 1
         
         # target_lesion = Image.fromarray(np.uint8(target_lesion))
 
