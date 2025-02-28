@@ -118,8 +118,8 @@ class Relabel(Dataset):
             target_odoc = target_odoc[..., 0]
 
         target_return = np.zeros_like(target_odoc, dtype=np.uint8)
-        target_return[np.where(target_odoc < 255)] = 0
-        target_return[np.where(target_odoc == 255)] = 1
+        target_return[np.where(target_odoc < 255)] = 1
+        target_return[np.where(target_odoc == 255)] = 2
         target_odoc[(target_odoc > 0) & (target_odoc < 255)] = 1
         target_odoc[target_odoc == 255] = 2
         target_odoc = cv2.resize(target_odoc, (self.args.size, self.args.size), interpolation=cv2.INTER_NEAREST)
