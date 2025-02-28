@@ -272,7 +272,7 @@ def validation_sam(args, val_loader, epoch, net: nn.Module, clean_dir=True):
     net.eval()
 
     n_val = len(val_loader) 
-    threshold = (0.9, 0.9)
+    threshold = (0.3, 0.3)
     GPUdevice = torch.device('cuda:' + str(args.gpu_device))
 
     # init
